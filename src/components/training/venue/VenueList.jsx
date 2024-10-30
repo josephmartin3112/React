@@ -1,70 +1,89 @@
 import { useState } from "react";
 
-export default function VenueList(){
+export default function VenueList() {
+  const [allVenues, setAllVenues] = useState([
+    {
+      venueId: 101,
+      venueName: "Pallavas",
+      venueSeater: 30,
+      isVenueAC: true,
+      venueCity: "Trivandrum",
+      venueState: "Kerala",
+    },
+  ]);
 
-    const [allVenues,setAllVenues] =useState([
-        {
-            venueId:101,
-            venueName:"Pallavas",
-            venueSeater:30,
-            isVenueAC:true,
-            venueCity:"Trivandrum",
-            venueState:"Kerala"
-        },
-         {
-            venueId:102,
-            venueName:"Cholans",
-            venueSeater:30,
-            isVenueAC:true,
-            venueCity:"Trivandrum",
-            venueState:"Kerala"
-        }
-    ]);
-    let mappedAllVenues= allVenues.map((eachVenue)=>
+  function handleView(venueId) {
+    console.log(venueId);
+  }
+
+  function handleEdit(venueId) {
+    console.log(venueId);
+  }
+
+  function handleDelete(venueId) {
+    console.log(venueId);
+    let filteredVenues = allVenues.filter(
+      (eachVenue) => eachVenue.venueId != venueId
+    );
+    setAllVenues([...filteredVenues]);
+  }
+
+  let mappedAllVenues = allVenues.map((eachVenue) => (
     <tr key={eachVenue.venueId}>
-        <td>{eachVenue.venueId}</td>
-        <td>{eachVenue.venueName}</td>
-        <td>{eachVenue.venueSeater}</td>
-        <td>{eachVenue.isVenueAC ? "AC" :"NON-AC" }</td>
-        <td>{eachVenue.venueCity}</td>     
-        <td>{eachVenue.venueState}</td>
-        <td><button type="button" className="btn btn-primary" onClick={()=>handleView(eachVenue.venueId)}>VIEW</button></td>
-        <td><button type="button" className="btn btn-primary" onClick={()=>handleEdit(eachVenue.venueId)}>EDIT</button></td>
-        <td><button type="button" className="btn btn-primary" onClick={()=>handleDelete(eachVenue.venueId)}>DELETE</button></td>
+      <td>{eachVenue.venueId}</td>
+      <td>{eachVenue.venueName}</td>
+      <td>{eachVenue.venueSeater} Seats</td>
+      <td>{eachVenue.isVenueAC ? "Yes" : "No"}</td>
+      <td>{eachVenue.venueCity}</td>
+      <td>{eachVenue.venueState}</td>
+      <td>
+        <button
+          onClick={() => handleView(eachVenue.venueId)}
+          className="btn btn-warning"
+        >
+          VIEW
+        </button>
+      </td>
+      <td>
+        <button
+          onClick={() => handleEdit(eachVenue.venueId)}
+          className="btn btn-primary"
+        >
+          EDIT
+        </button>
+      </td>
+      <td>
+        <button
+          onClick={() => handleDelete(eachVenue.venueId)}
+          className="btn btn-danger"
+        >
+          DELETE
+        </button>
+      </td>
     </tr>
-    );
+  ));
 
-    function handleView(venueId){
-        console.log(venueId);
-    }
-
-    function handleEdit(){
-
-    }
-
-    function handleDelete(venueId){
-        let filteredData=allVenues.filter((eachVenue)=>eachVenue.venueId!=venueId);
-        setAllVenues(filteredData);    
-    }
-    return (
-        <>
-        <div className="container m-5"></div>
-        <h3>VENUE LIST</h3>
+  return (
+    <>
+      <div className="container m-1">
+        <h3>LIST OF VENUES</h3>
         <table className="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NAME</th>
-                    <th>SEATER CAPACITY</th>
-                    <th>AC/NON-AC</th>
-                    <th>CITY</th>
-                    <th>STATE</th>
-                </tr>
-            </thead>
-            <tbody>
-                {mappedAllVenues}
-            </tbody>
+          <thead>
+            <tr className="table-dark">
+              <th>ID</th>
+              <th>NAME</th>
+              <th>Capacity</th>
+              <th>AC</th>
+              <th>City</th>
+              <th>State</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>{mappedAllVenues}</tbody>
         </table>
-        </>
-    );
+      </div>
+    </>
+  );
 }

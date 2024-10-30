@@ -27,6 +27,8 @@ import EcomWishList from "./components/ecommerce/EcomWishList";
 import HeaderTraining from "./components/training/HeaderTraining";
 import CohortList from "./components/training/cohort/CohortList";
 import VenueList from "./components/training/venue/VenueList";
+import VenueAdd from "./components/training/venue/VenueAdd";
+import CohortView from "./components/training/cohort/CohortView.jsx";
 
 function App() {
   return (
@@ -54,6 +56,7 @@ function App() {
       
       {/* <VenueList></VenueList>
       <CohortList></CohortList> */}
+      {/* <VenueAdd></VenueAdd> */}
       
       
       <BrowserRouter>
@@ -66,11 +69,11 @@ function App() {
           <Route path="/actor-list" element={<ActorList />}></Route>
           <Route path="/*" element={<Error />}></Route>
           <Route path="/training" element={<HeaderTraining />}>
-            <Route path='venue-list' element={<VenueList/>}></Route>
-            <Route path='cohort-list' element={<CohortList/>}></Route>
+            <Route path="venue-list" element={<VenueList />}></Route>
+            <Route path="cohort-list" element={<CohortList />}></Route>
+            <Route path="cohort-view/:cid" element={<CohortView />}></Route>
+            <Route path="venue-add" element={<VenueAdd />}></Route>
           </Route>
-          
-          
         </Routes>
       </BrowserRouter>
     </>
