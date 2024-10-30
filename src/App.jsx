@@ -24,6 +24,9 @@ import { BrowserRouter, Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import HeaderApp from "./components/HeaderApp";
 import EcomWishList from "./components/ecommerce/EcomWishList";
+import HeaderTraining from "./components/training/HeaderTraining";
+import CohortList from "./components/training/cohort/CohortList";
+import VenueList from "./components/training/venue/VenueList";
 
 function App() {
   return (
@@ -46,11 +49,14 @@ function App() {
       {/* <EcomEdit></EcomEdit> */}
       {/* <EcomAddValidation></EcomAddValidation> */}
       {/* <ToDoList></ToDoList> */}
-      <EcomWishList></EcomWishList>
+      {/* <EcomWishList></EcomWishList> */}
       
       
+      {/* <VenueList></VenueList>
+      <CohortList></CohortList> */}
       
-      {/* <BrowserRouter>
+      
+      <BrowserRouter>
         <HeaderApp></HeaderApp>
         <Routes>
           <Route path="/" element={<Counter />}></Route>
@@ -59,8 +65,14 @@ function App() {
           <Route path="/ecom-list" element={<EcomList />}></Route>
           <Route path="/actor-list" element={<ActorList />}></Route>
           <Route path="/*" element={<Error />}></Route>
+          <Route path="/training" element={<HeaderTraining />}>
+            <Route path='venue-list' element={<VenueList/>}></Route>
+            <Route path='cohort-list' element={<CohortList/>}></Route>
+          </Route>
+          
+          
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </>
   );
 }

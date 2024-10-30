@@ -25,6 +25,11 @@ export default function HeaderApp() {
                 Product Component
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/training" className="nav-link">
+                Training  Component
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
