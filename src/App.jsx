@@ -29,6 +29,7 @@ import CohortList from "./components/training/cohort/CohortList";
 import VenueList from "./components/training/venue/VenueList";
 import VenueAdd from "./components/training/venue/VenueAdd";
 import CohortView from "./components/training/cohort/CohortView.jsx";
+import JsonPlaceholder from "./components/JsonPlaceholder.jsx";
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
           <Route path="/product-list" element={<ProductList />}></Route>
           <Route path="/ecom-list" element={<EcomList />}></Route>
           <Route path="/actor-list" element={<ActorList />}></Route>
+          <Route path="/jsonplaceholder" element={<JsonPlaceholder />}></Route>
           <Route path="/*" element={<Error />}></Route>
           <Route path="/training" element={<HeaderTraining />}>
             <Route path="venue-list" element={<VenueList />}></Route>

@@ -30,6 +30,11 @@ export default function HeaderApp() {
                 Training  Component
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/jsonplaceholder" className="nav-link">
+                Json Placeholder
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
