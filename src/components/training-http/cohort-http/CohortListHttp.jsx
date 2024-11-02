@@ -1,82 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function CohortList() {
+export default function CohortListHttp() {
+  const baseUrl = "http://localhost:3500/cohorts";
   const navigate = useNavigate(); // created for programatic navigation
   const [searchStack, setSearchStack] = useState("");
-  const [allCohorts, setAllCohorts] = useState([
-    {
-      cohortId: 201,
-      cohortSize: 26,
-      cohortVenueId: 0,
-      cohortStack: "Java Full Stack",
-      cohortStartDate: new Date("2024-12-12"),
-      cohortDurationWeeks: 6,
-      cohortSPOC: "",
-      cohortInstructor: "",
-    },
-    {
-      cohortId: 202,
-      cohortSize: 25,
-      cohortVenueId: 101,
-      cohortStack: ".Net Full Stack",
-      cohortStartDate: new Date("2024-11-11"),
-      cohortDurationWeeks: 6,
-      cohortSPOC: "",
-      cohortInstructor: "",
-    },
-    {
-      cohortId: 203,
-      cohortSize: 20,
-      cohortVenueId: 102,
-      cohortStack: "Python Full Stack",
-      cohortStartDate: new Date("2024-12-12"),
-      cohortDurationWeeks: 6,
-      cohortSPOC: "",
-      cohortInstructor: "",
-    },
-  ]);
+  const [allCohorts, setAllCohorts] = useState([]);
   const [filteredAllCohorts, setFilteredAllCohorts] = useState([...allCohorts]);
+  const [allVenues, setAllVenues] = useState([]);
 
-  const [allVenues, setAllVenues] = useState([
-    {
-      venueId: 101,
-      venueName: "Pallavas",
-      venueSeater: 30,
-      isVenueAC: true,
-      venueCity: "Trivandrum",
-      venueState: "Kerala",
-    },
-    {
-      venueId: 102,
-      venueName: "Cholans",
-      venueSeater: 30,
-      isVenueAC: true,
-      venueCity: "Trivandrum",
-      venueState: "Kerala",
-    },
-  ]);
-
-  function handleView(cohortId) {
-    console.log(cohortId);
-    let getCohort = allCohorts.filter(
-      (eachCohort) => eachCohort.cohortId == cohortId
-    );
-    // navigate to another component with route path /training/cohort-view
-    // here we have to use programatic navigation with the help of useNavigate() hook
-    navigate("/training/cohort-view/" + cohortId, { state: getCohort[0] });
+  function loadAllCohorts() {
+    fetch(baseUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        setAllCohorts([...data]);
+        setFilteredAllCohorts([...data]);
+        console.log(data);
+      });
   }
 
-  function handleEdit(cohortId) {
-    console.log(cohortId);
+  useEffect(() => {
+    loadAllCohorts();
+  }, []);
+
+  function handleView(id) {
+    console.log(id);
+    navigate("/training-http/cohort-view-http/" + id);
   }
 
-  function handleDelete(cohortId) {
-    console.log(cohortId);
-    let filteredCohorts = filteredAllCohorts.filter(
-      (eachCohort) => eachCohort.cohortId != cohortId
-    );
-    setFilteredAllCohorts([...filteredCohorts]);
+  function handleEdit(id) {
+    console.log(id);
+  }
+
+  function handleDelete(id) {
+    console.log(id);
+    // here we have to consume the delete endpoint
+    fetch(baseUrl + "/" + id, { method: "DELETE" })
+      .then((res) => res.json())
+      .then((data) => loadAllCohorts());
   }
 
   function handleSearch(event) {
@@ -95,8 +56,8 @@ export default function CohortList() {
     return newDate;
   }
   let mappedAllCohorts = filteredAllCohorts.map((eachCohort) => (
-    <tr key={eachCohort.cohortId}>
-      <td>{eachCohort.cohortId}</td>
+    <tr key={eachCohort.id}>
+      <td>{eachCohort.id}</td>
       <td>{eachCohort.cohortStack}</td>
       <td>{eachCohort.cohortSize}</td>
       <td>
@@ -106,11 +67,11 @@ export default function CohortList() {
           eachCohort.cohortVenueId
         )}
       </td>
-      <td>{eachCohort.cohortStartDate.toDateString()}</td>
+      <td>{new Date(eachCohort.cohortStartDate).toDateString()}</td>
       <td>{eachCohort.cohortDurationWeeks} Weeks</td>
       <td>
         {addDays(
-          eachCohort.cohortStartDate,
+          new Date(eachCohort.cohortStartDate),
           eachCohort.cohortDurationWeeks * 7
         ).toDateString()}
       </td>
@@ -118,7 +79,7 @@ export default function CohortList() {
       <td>{eachCohort.cohortInstructor}</td>
       <td>
         <button
-          onClick={() => handleView(eachCohort.cohortId)}
+          onClick={() => handleView(eachCohort.id)}
           className="btn btn-warning"
         >
           <span className="material-symbols-outlined">view_list</span>
@@ -126,7 +87,7 @@ export default function CohortList() {
       </td>
       <td>
         <button
-          onClick={() => handleEdit(eachCohort.cohortId)}
+          onClick={() => handleEdit(eachCohort.id)}
           className="btn btn-primary"
         >
           <span className="material-symbols-outlined">edit</span>
@@ -134,7 +95,7 @@ export default function CohortList() {
       </td>
       <td>
         <button
-          onClick={() => handleDelete(eachCohort.cohortId)}
+          onClick={() => handleDelete(eachCohort.id)}
           className="btn btn-danger"
         >
           <span className="material-symbols-outlined">delete</span>
@@ -145,8 +106,6 @@ export default function CohortList() {
 
   return (
     <>
-    {JSON.stringify(allCohorts)}
-    {JSON.stringify(allVenues)}
       <div className="container m-1">
         <h3>LIST OF COHORTS</h3>
         <div className="formC-control-group">

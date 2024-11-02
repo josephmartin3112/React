@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function CohortAdd() {
+export default function CohortAddHttp() {
   let navigate = useNavigate();
   const [cohortData, setCohortData] = useState({
     cohortId: 0,

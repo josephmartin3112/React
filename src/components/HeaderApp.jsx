@@ -27,12 +27,17 @@ export default function HeaderApp() {
             </li>
             <li className="nav-item">
               <Link to="/training" className="nav-link">
-                Training  Component
+                Training
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/jsonplaceholder" className="nav-link">
-                Json Placeholder
+              <Link to="/fake-api" className="nav-link">
+                Fake API
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/training-http" className="nav-link">
+                Training Http
               </Link>
             </li>
           </ul>

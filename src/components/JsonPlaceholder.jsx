@@ -47,4 +47,3 @@ let mappedAllPosts = allPosts.map((eachPost) => (
     </>
   );
 }
-
